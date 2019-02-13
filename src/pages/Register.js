@@ -1,85 +1,43 @@
-// import React from 'react';
-// import { Formik, Form, Field } from 'formik';
-// //import * as Yup from 'yup';
-
-
-// const Register =(props)=> {
-//     return (
-//         <div className="">
-//               <div>
-//                   <label>Nombre Completo </label>
-//                   <input type="text" name="name" onChange={props.setStateUser} />
-//               </div>
-//               <div>
-//                   <label>Nº de CUIL </label>
-//                   <input type="text" name="cuil" onChange={props.setStateUser} />
-//               </div>
-//           <button type="button" onClick={props.nextStepClick} >Submit</button>
-//         </div>
-//      )
-// }
-
-// export default Register;
-
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
-// import * as Yup from 'yup';
+import MaskedInput from 'react-maskedinput'
 
-/*function validateEmail(value) {
-  let error;
-  if (!value) {
-    error = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Invalid email address';
-  }
-  return error;
-}*/
+let name = React.createRef();
+let cuil = React.createRef();
 
-/*function validateUsername(value) {
-  let error;
-  if (value === 'admin') {
-    error = 'Nice try!';
+const sendForm = (props) => (event) => {
+  event.preventDefault();
+  let validMask=true
+  let arrMask = cuil.mask.value;
+  arrMask.forEach(element => {
+    if (element=='_'){
+      console.log('error mask')
+      validMask = false
+    }
+  });
+  if (validMask && name.value) {
+      arrMask = arrMask.join('')
+      arrMask = parseInt(arrMask.replace(new RegExp('-', 'g'), ''));
+      let obj = {}
+      obj.name = name.value
+      obj.cuil = arrMask
+      props.setStateUser(obj)
+      props.nextStepClick()
   }
-  return error;
-}*/
-
-function validateRequired(value) {
-  let error;
-  if(!value){
-    error = 'Required';
-  }
-  return error;
 }
 
 const Register = (props) => (
-  <div>
-    <h1>Signup</h1>
-    <Formik
-      initialValues={{
-        name: '',
-        cuil: '',
-      }}
-      onSubmit={values => {
-        const test = values;
-        props.setStateUser(test)
-      }}
-    >
-      {({ errors, touched, isValidating }) => (
-        <Form>
-          <div>
-            <label>Nombre Completo </label>
-            <Field name="name" validate={validateRequired} type="text"  />
-            {errors.name && touched.name && <div>{errors.name}</div>}
-          </div>
-          <div>
-            <label>Nº de CUIL </label>
-            <Field name="cuil" validate={validateRequired} type="text"  />
-            {errors.cuil && touched.cuil && <div>{errors.cuil}</div>}
-          </div>
-          <button type="submit">Submit</button>
-        </Form>
-      )}
-    </Formik>
+  <div> 
+      <form onSubmit={sendForm(props)}>
+        <div>
+          <label>Nombre Completo </label>
+          <input name="name"  type="text" ref={input => {name = input;}}  />
+        </div>
+        <div>
+          <label>Nº de CUIL </label>
+          <MaskedInput mask="11-11111111-1" name="cuil"  id="cuil" ref={input => {cuil = input;}}   />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
   </div>
 );
 

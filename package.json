@@ -12,7 +12,9 @@
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-dropdown": "^1.6.4",
-    "react-scripts": "2.1.5"
+    "react-maskedinput": "^4.0.1",
+    "react-scripts": "2.1.5",
+    "yup": "^0.26.10"
   },
   "scripts": {
     "start": "react-scripts start",

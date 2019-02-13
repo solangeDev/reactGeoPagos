@@ -87,21 +87,12 @@ class App extends Component {
           break;
         }
       }
-
-
-      setStateUser =  test => {
-        var myObject = test;
-
-        Object.keys(myObject).map(function(key, index) {
-          myObject[key] = test.key;
-        });
-
-        console.log(myObject);
-        
-        
-        /*const object2 = {...object1,test}
-        console.log(object2)*/
-        
+      setStateUser =  values => {
+        console.log(values)
+        const newUser = {...this.state.user,...values}
+        this.setState({
+          user: newUser
+        })
       }
 
       handleShowPassword = (e) =>{
@@ -115,7 +106,6 @@ class App extends Component {
           showPassword: showPass
         })
       }
-
       render() {
         const dataList=this.state.list.filter(list => list.id==this.state.step);
         const stepComponet = this.nextComponentStep(this.state.step);
