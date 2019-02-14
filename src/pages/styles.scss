@@ -1,0 +1,78 @@
+.error {
+  border-color: red;
+}
+
+.errorMsj {
+  color: red;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+
+  .input-container {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 2.2rem;
+
+    & label {
+      font-size: 0.8rem;
+      color: #0058cc;
+      margin-bottom: 0.3rem;
+    }
+
+    & input {
+      border: #33beff 1px solid;
+      font-size: 1rem;
+      height: 50px;
+      padding: 10px;
+      color: #3e3e3e !important;
+    }
+  }
+
+  .btns-container {
+    display: flex;
+    justify-content: space-between;
+
+    &.one-button {
+      justify-content: flex-end;
+    }
+
+    button {
+      border: none;
+      font-size: 1rem;
+      width: 45%;
+      height: 3rem;
+      border-radius: 4px;
+      align-self: flex-end;
+
+      &.btn-prev {
+        align-self: flex-start;
+        background-color: #fff;
+        color: #0058cc;
+          border: 1px solid #0058cc;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #0058cc;
+          color: #fff;
+        }
+      }
+
+      &.btn-next {
+        background-color: #0058cc;
+        color: #fff;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #fff;
+          color: #0058cc;
+          border: 1px solid #0058cc;
+        }
+      }
+    }
+  }
+}

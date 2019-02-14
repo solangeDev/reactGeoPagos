@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css'
+import './styles.scss'
 
 const Success = (props) => (
     <div>
