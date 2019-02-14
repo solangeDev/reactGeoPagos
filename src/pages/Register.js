@@ -1,23 +1,30 @@
 import React from 'react';
 import MaskedInput from 'react-maskedinput'
+import '../App.css'
 
 let name = React.createRef();
 let cuil = React.createRef();
 
 const sendForm = (props) => (event) => {
   event.preventDefault();
-  let validMask=true
   let arrMask = cuil.mask.value;
+  let objvalidForm={}
+  let obj = {}
+  let validMask=true
+  if(!name.value){
+    objvalidForm.name=false
+    props.setStateFormValid(objvalidForm)
+  }
   arrMask.forEach(element => {
     if (element=='_'){
-      console.log('error mask')
-      validMask = false
+      validMask=false
+      objvalidForm.cuil=false
+      props.setStateFormValid(objvalidForm)
     }
   });
-  if (validMask && name.value) {
+  if (name.value && validMask) {
       arrMask = arrMask.join('')
       arrMask = parseInt(arrMask.replace(new RegExp('-', 'g'), ''));
-      let obj = {}
       obj.name = name.value
       obj.cuil = arrMask
       props.setStateUser(obj)
@@ -29,12 +36,14 @@ const Register = (props) => (
   <div> 
       <form onSubmit={sendForm(props)}>
         <div>
-          <label>Nombre Completo </label>
-          <input name="name"  type="text" ref={input => {name = input;}}  />
+          <label>Nombre Completo</label>
+          <input  type="text" name="name" value={props.user.name} ref={input => {name = input;}} className={(!props.form.name)?'error':''}  onChange={props.changeStateFormValid} />
+          {(!props.form.name)?<span className="errorMsj">Campo requerido</span>:''}
         </div>
         <div>
           <label>Nº de CUIL </label>
-          <MaskedInput mask="11-11111111-1" name="cuil"  id="cuil" ref={input => {cuil = input;}}   />
+          <MaskedInput name="cuil" ref={input => {cuil = input;}} id="cuil" mask="11-11111111-1" className={(!props.form.cuil)?'error':''}  onChange={props.changeStateFormValid}   />
+          {(!props.form.cuil)?<span className="errorMsj">Campo requerido</span>:''}
         </div>
         <button type="submit">Submit</button>
       </form>
