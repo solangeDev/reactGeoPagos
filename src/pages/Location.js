@@ -22,9 +22,9 @@ const sendForm=(props)=>(event)=>{
         objvalidForm.street=true
         objvalidForm.num_street=true
         objvalidForm.provinces=true
-        props.setStateFormValid(objvalidForm)
-        props.setStateUser(obj)
-        props.nextStepClick()
+        props.Functions.setStateFormValid(objvalidForm)
+        props.Functions.setStateUser(obj)
+        props.Functions.nextStepClick()
     }else{
         if(!street.value){
             objvalidForm.street=false
@@ -38,7 +38,7 @@ const sendForm=(props)=>(event)=>{
         if(!locale.state.selected.value){
             objvalidForm.locale=false
         }
-        props.setStateFormValid(objvalidForm)
+        props.Functions.setStateFormValid(objvalidForm)
     }
 }
 
@@ -47,33 +47,33 @@ const Register = (props) => (
         <form onSubmit={sendForm(props)}>
          <div>
              <label>Calle</label>
-             <input type="text" value={props.user.street} name="street" id="street" ref={input => {street = input;}} className={(!props.form.street)?'error':''}  onChange={props.changeStateFormValid} />
-             {(!props.form.street)?<span className="errorMsj">Campo requerido</span>:''}
+             <input type="text" value={props.state.user.street} name="street" id="street" ref={input => {street = input;}} className={(!props.state.formValid.street)?'error':''}  onChange={props.changeStateFormValid} />
+             {(!props.state.formValid.street)?<span className="errorMsj">Campo requerido</span>:''}
          </div>
          <div>
              <label>Número</label>
-             <input type="text"  value={props.user.num_street} name="num_street" id="num_street" ref={input => {num_street = input;}} className={(!props.form.num_street)?'error':''}  onChange={props.changeStateFormValid} />
-             {(!props.form.num_street)?<span className="errorMsj">Campo requerido</span>:''}
+             <input type="text"  value={props.state.user.num_street} name="num_street" id="num_street" ref={input => {num_street = input;}} className={(!props.state.formValid.num_street)?'error':''}  onChange={props.changeStateFormValid} />
+             {(!props.state.formValid.num_street)?<span className="errorMsj">Campo requerido</span>:''}
          </div>
          <div>      
              <label>Provincia</label>
-             <Dropdown name="provinces" options={props.provinces} 
-                id="provinces" value={props.user.provinces}
+             <Dropdown name="provinces" options={props.state.provinces} 
+                id="provinces" value={props.state.user.provinces}
                 placeholder="Select an option"
-                ref={input => {provinces = input;}} className={(!props.form.provinces)?'error':''}  onChange={props.changeProvinces} />
-                {(!props.form.provinces)?<span className="errorMsj">Campo requerido</span>:''}
+                ref={input => {provinces = input;}} className={(!props.state.formValid.provinces)?'error':''}  onChange={props.changeProvinces} />
+                {(!props.state.formValid.provinces)?<span className="errorMsj">Campo requerido</span>:''}
          </div>
          <div>      
              <label>Localidades</label>
-             <Dropdown name="locale" options={props.localities} 
-                value={props.user.locale}
+             <Dropdown name="locale" options={props.state.localities} 
+                value={props.state.user.locale}
                 onChange={props.changeLocale}
                 id="locale"
                 placeholder="Select an option"
-                ref={input => {locale = input;}} className={(!props.form.locale)?'error':''}  />
-                {(!props.form.locale)?<span className="errorMsj">Campo requerido</span>:''}
+                ref={input => {locale = input;}} className={(!props.state.formValid.locale)?'error':''}  />
+                {(!props.state.formValid.locale)?<span className="errorMsj">Campo requerido</span>:''}
          </div>
-         <button type="button" onClick={props.prevStepClick} >Atras</button>
+         <button type="button" onClick={props.Functions.prevStepClick} >Atras</button>
          <button type="submit">Submit</button>
         </form>
 </div>

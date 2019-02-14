@@ -3,6 +3,7 @@ import Header from './header';
 import Register from './pages/Register';
 import Location from './pages/Location';
 import Login from './pages/Login';
+import Success from './pages/Success'
 const axios = require('axios');
 
 class App extends Component {
@@ -14,14 +15,17 @@ class App extends Component {
           { id:4, name:'Success'},
         ],
         endstep:4,
-        step:1,
-        valid:true,
+        step:3,
+        minlengthPass: 8,
         provinces: null,
-        localities:null,
+        localities:[
+          {label:'Seleccione',value:''}
+        ],
         showPassword:false,
         user:{
           name:undefined,
           cuil:undefined,
+          cuilmask:undefined,
           street:undefined,
           num_street: undefined,
           provinces:undefined,
@@ -30,12 +34,15 @@ class App extends Component {
           password:undefined,
         },
         formValid:{
+          valid:true,
           name:true,
           cuil:true,
           street:true,
           num_street:true,
           provinces:true,
           locale:true,
+          email: true,
+          password: true,
         }
       }
 
@@ -69,15 +76,6 @@ class App extends Component {
         }
       }
 
-      getDataLocalities = async (prov) => {
-        try {
-          const response = await axios.get(`https://geopagos-challenge.s3.amazonaws.com/provinces/${prov}.json`);
-          return response.data.cities;
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
       componentDidMount(){
         this.getDataProvincies()
       }
@@ -88,7 +86,7 @@ class App extends Component {
             step: this.state.step + 1,
           })
         }else{
-          if(this.state.valid){
+          if (this.state.step + 1 == this.state.endstep) {
            this.setState({
              step: this.state.endstep,
            })
@@ -143,7 +141,6 @@ class App extends Component {
       }
 
       changeLocale = event =>{
-        console.log(event)
         const copieStateUser = {...this.state.user,locale:event.value}
         const copieFormValid = {...this.state.formValid,locale:true}
         this.setState({
@@ -166,16 +163,26 @@ class App extends Component {
       }
 
       nextComponentStep=(step)=>{
+        const propsGlobalFunctions = {
+          nextStepClick: this.nextStepClick,
+          setStateUser: this.setStateUser,
+          setStateFormValid: this.setStateFormValid,
+          changeStateFormValid: this.changeStateFormValid,
+          prevStepClick: this.prevStepClick
+        }
         switch (step) {
           case 1:
-            return <Register user={this.state.user} form={this.state.formValid} nextStepClick={this.nextStepClick} setStateUser={this.setStateUser} setStateFormValid={this.setStateFormValid} changeStateFormValid={this.changeStateFormValid}/>;
+            return <Register state={this.state} Functions={propsGlobalFunctions} />;
           break;
           case 2:
-            return <Location user={this.state.user} form={this.state.formValid} provinces={this.state.provinces} localities={this.state.localities}  nextStepClick={this.nextStepClick} setStateUser={this.setStateUser} prevStepClick={this.prevStepClick} setStateFormValid={this.setStateFormValid} changeStateFormValid={this.changeStateFormValid} changeProvinces={this.changeProvinces} changeLocale={this.changeLocale} />;
+            return <Location state={this.state} Functions={propsGlobalFunctions} changeStateFormValid={this.changeStateFormValid} changeProvinces={this.changeProvinces} changeLocale={this.changeLocale} />;
           break;
           case 3:
-            return <Login nextStepClick={this.nextStepClick} setStateUser={this.setStateUser} showPassword={this.state.showPassword} handleShowPassword={this.handleShowPassword}
+            return <Login state={this.state}  Functions={propsGlobalFunctions} showPassword={this.state.showPassword} handleShowPassword={this.handleShowPassword}
             prevStepClick={this.prevStepClick} />;
+          break;
+          case 4:
+            return <Success state={this.state}/>;
           break;
         }
       }
@@ -184,8 +191,11 @@ class App extends Component {
       render() {
         const dataList=this.state.list.filter(list => list.id==this.state.step);
         const stepComponet = this.nextComponentStep(this.state.step);
-        return (
+        return ( 
           <div className="container">
+          {
+            console.log(this.state)
+          }
               <Header title={dataList[0].name} step={dataList[0].id} />
               {stepComponet}
           </div>
