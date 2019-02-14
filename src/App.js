@@ -15,7 +15,7 @@ class App extends Component {
           { id:4, name:'Success'},
         ],
         endstep:4,
-        step:3,
+        step:1,
         minlengthPass: 8,
         provinces: null,
         localities:[
