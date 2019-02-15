@@ -11,8 +11,6 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
-    "f": "^1.4.0",
-    "i": "^0.3.6",
     "node-sass": "^4.11.0",
     "npm": "^6.8.0",
     "react": "^16.8.1",
@@ -20,8 +18,7 @@
     "react-dropdown": "^1.6.4",
     "react-maskedinput": "^4.0.1",
     "react-scripts": "2.1.5",
-    "yarn-install": "^1.0.0",
-    "yup": "^0.26.10"
+    "yarn-install": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
