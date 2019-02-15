@@ -41,7 +41,7 @@ const Register = props => (
         <input
           type="text"
           name="name"
-          value={props.state.user.name}
+          defaultValue={props.state.user.name}
           ref={input => {
             name = input;
           }}

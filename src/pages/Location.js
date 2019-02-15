@@ -52,7 +52,7 @@ const Register = props => (
         <label>Calle</label>
         <input
           type="text"
-          value={props.state.user.street}
+          defaultValue={props.state.user.street}
           name="street"
           id="street"
           ref={input => {
@@ -71,7 +71,7 @@ const Register = props => (
         <label>Número</label>
         <input
           type="text"
-          value={props.state.user.num_street}
+          defaultValue={props.state.user.num_street}
           name="num_street"
           id="num_street"
           ref={input => {
