@@ -47,8 +47,8 @@ const sendForm = props => event => {
 
 const Register = props => (
   <div className="">
-    <form onSubmit={sendForm(props)}>
-      <div>
+    <form onSubmit={sendForm(props)} className="test">
+      <div className="input-container">
         <label>Calle</label>
         <input
           type="text"
@@ -67,7 +67,7 @@ const Register = props => (
           ''
         )}
       </div>
-      <div>
+      <div className="input-container">
         <label>Número</label>
         <input
           type="text"
@@ -86,7 +86,7 @@ const Register = props => (
           ''
         )}
       </div>
-      <div>
+      <div className="input-container">
         <label>Provincia</label>
         <Dropdown
           name="provinces"
@@ -106,7 +106,7 @@ const Register = props => (
           ''
         )}
       </div>
-      <div>
+      <div className="input-container">
         <label>Localidades</label>
         <Dropdown
           name="locale"
@@ -126,10 +126,12 @@ const Register = props => (
           ''
         )}
       </div>
-      <button type="button" onClick={props.Functions.prevStepClick}>
-        Atras
-      </button>
-      <button type="submit">Submit</button>
+      <div className="btns-container one-button">
+        <button type="button" className="btn-prev" onClick={props.Functions.prevStepClick}>Anterior</button>
+        <button className="btn-next" type="submit">
+          Siguiente
+        </button>
+      </div>
     </form>
   </div>
 );

@@ -34,7 +34,8 @@ const sendForm = props => event => {
     obj.email = email.value;
     obj.password = password.value;
     props.Functions.setStateUser(obj);
-    props.Functions.nextStepClick();
+    props.sendState();
+    //props.Functions.nextStepClick();
   } else {
     props.Functions.setStateFormValid(objvalidForm);
   }
@@ -43,7 +44,7 @@ const sendForm = props => event => {
 const Register = props => (
   <div>
     <form onSubmit={sendForm(props)}>
-      <div>
+      <div className="input-container margin-login">
         <label>Email </label>
         <input
           name="email"
@@ -60,7 +61,7 @@ const Register = props => (
           ''
         )}
       </div>
-      <div>
+      <div className="input-container margin-login">
         <label>Contraseña</label>
         <input
           type={props.showPassword ? 'text' : 'password'}
@@ -77,7 +78,7 @@ const Register = props => (
           ''
         )}
       </div>
-      <div>
+      <div className="margin-login show-password" >
         <label>Mostrar Contraseña</label>
         <input
           type="checkbox"
@@ -85,10 +86,10 @@ const Register = props => (
           onChange={props.handleShowPassword}
         />
       </div>
-      <button type="button" onClick={props.Functions.prevStepClick}>
-        Atras
-      </button>
-      <button type="submit">Submit</button>
+      <div className="btns-container one-button">
+        <button type="button" className="btn-prev" onClick={props.Functions.prevStepClick}>Anterior</button>
+        <button className="btn-next" type="submit">Finalizar</button>
+      </div>
     </form>
   </div>
 );

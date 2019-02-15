@@ -6,6 +6,13 @@ import Login from './pages/Login';
 import Success from './pages/Success';
 import './App.scss';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { async } from 'q';
+library.add(faCheckCircle)
+
+
 const axios = require('axios');
 
 class App extends Component {
@@ -80,7 +87,22 @@ class App extends Component {
     } catch (error) {
       console.error(error);
     }
-  };
+  }
+
+  sendState = async () =>{
+    try {
+      const response = await axios({
+        method: 'post',
+        url: 'http://www.mocky.io/v2/5c662b9730000070008c266b',
+        data: this.state.user
+      });
+      if(response.status==200){
+        this.nextStepClick();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   componentDidMount() {
     this.getDataProvincies();
@@ -202,6 +224,7 @@ class App extends Component {
             showPassword={this.state.showPassword}
             handleShowPassword={this.handleShowPassword}
             prevStepClick={this.prevStepClick}
+            sendState={this.sendState}
           />
         );
         break;
@@ -216,10 +239,11 @@ class App extends Component {
       list => list.id === this.state.step
     );
     const stepComponet = this.nextComponentStep(this.state.step);
+    const header = (this.state.step!=this.state.endstep)?<Header title={dataList[0].name} step={dataList[0].id}/>:null;
     return (
       <div className="outer-container">
         <div className="form-container">
-          <Header title={dataList[0].name} step={dataList[0].id} />
+          {header}
           {stepComponet}
         </div>
       </div>
