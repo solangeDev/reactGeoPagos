@@ -9,17 +9,17 @@
   margin-bottom: 1.2rem !important;
 }
 
-.container-success{
+.container-success {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
 
-  & .fa-check-circle{
+  & .fa-check-circle {
     font-size: 12rem;
     color: #80dcf3;
   }
 
-  & p{
+  & p {
     font-size: 1.5rem;
     color: #0058cc;
     margin-top: 15px;
@@ -29,22 +29,30 @@
 form {
   display: flex;
   flex-flow: column;
-  
-  .show-password{
+
+  .show-password {
     font-size: 0.8rem;
     color: #0058cc;
     margin-bottom: 0.3rem;
 
-    & label{
+    & label {
       margin-right: 10px;
     }
-
   }
-  
+
+  & .input-double {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .input-container {
     display: flex;
     flex-flow: column;
     margin-bottom: 2.2rem;
+
+    &.double {
+      width: 45%;
+    }
 
     & label {
       font-size: 0.8rem;

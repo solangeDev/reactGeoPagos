@@ -48,85 +48,89 @@ const sendForm = props => event => {
 const Register = props => (
   <div className="">
     <form onSubmit={sendForm(props)} className="test">
-      <div className="input-container">
-        <label>Calle</label>
-        <input
-          type="text"
-          defaultValue={props.state.user.street}
-          name="street"
-          id="street"
-          ref={input => {
-            street = input;
-          }}
-          className={!props.state.formValid.street ? 'error' : ''}
-          onChange={props.changeStateFormValid}
-        />
-        {!props.state.formValid.street ? (
-          <span className="errorMsj">Campo requerido</span>
-        ) : (
-          ''
-        )}
+      <div className="input-double">
+        <div className="input-container double">
+          <label>Calle</label>
+          <input
+            type="text"
+            defaultValue={props.state.user.street}
+            name="street"
+            id="street"
+            ref={input => {
+              street = input;
+            }}
+            className={!props.state.formValid.street ? 'error' : ''}
+            onChange={props.changeStateFormValid}
+          />
+          {!props.state.formValid.street ? (
+            <span className="errorMsj">Campo requerido</span>
+          ) : (
+            ''
+          )}
+        </div>
+        <div className="input-container double">
+          <label>Número</label>
+          <input
+            type="text"
+            defaultValue={props.state.user.num_street}
+            name="num_street"
+            id="num_street"
+            ref={input => {
+              num_street = input;
+            }}
+            className={!props.state.formValid.num_street ? 'error' : ''}
+            onChange={props.changeStateFormValid}
+          />
+          {!props.state.formValid.num_street ? (
+            <span className="errorMsj">Campo requerido</span>
+          ) : (
+            ''
+          )}
+        </div>
       </div>
-      <div className="input-container">
-        <label>Número</label>
-        <input
-          type="text"
-          defaultValue={props.state.user.num_street}
-          name="num_street"
-          id="num_street"
-          ref={input => {
-            num_street = input;
-          }}
-          className={!props.state.formValid.num_street ? 'error' : ''}
-          onChange={props.changeStateFormValid}
-        />
-        {!props.state.formValid.num_street ? (
-          <span className="errorMsj">Campo requerido</span>
-        ) : (
-          ''
-        )}
+      <div className="input-double" >
+        <div className="input-container double">
+          <label>Provincia</label>
+          <Dropdown
+            name="provinces"
+            options={props.state.provinces}
+            id="provinces"
+            value={props.state.user.provinces}
+            placeholder="Select an option"
+            ref={input => {
+              provinces = input;
+            }}
+            className={!props.state.formValid.provinces ? 'error' : ''}
+            onChange={props.changeProvinces}
+          />
+          {!props.state.formValid.provinces ? (
+            <span className="errorMsj">Campo requerido</span>
+          ) : (
+            ''
+          )}
+        </div>
+        <div className="input-container double">
+          <label>Localidad</label>
+          <Dropdown
+            name="locale"
+            options={props.state.localities}
+            value={props.state.user.locale}
+            onChange={props.changeLocale}
+            id="locale"
+            placeholder="Select an option"
+            ref={input => {
+              locale = input;
+            }}
+            className={!props.state.formValid.locale ? 'error' : ''}
+          />
+          {!props.state.formValid.locale ? (
+            <span className="errorMsj">Campo requerido</span>
+          ) : (
+            ''
+          )}
+        </div>
       </div>
-      <div className="input-container">
-        <label>Provincia</label>
-        <Dropdown
-          name="provinces"
-          options={props.state.provinces}
-          id="provinces"
-          value={props.state.user.provinces}
-          placeholder="Select an option"
-          ref={input => {
-            provinces = input;
-          }}
-          className={!props.state.formValid.provinces ? 'error' : ''}
-          onChange={props.changeProvinces}
-        />
-        {!props.state.formValid.provinces ? (
-          <span className="errorMsj">Campo requerido</span>
-        ) : (
-          ''
-        )}
-      </div>
-      <div className="input-container">
-        <label>Localidades</label>
-        <Dropdown
-          name="locale"
-          options={props.state.localities}
-          value={props.state.user.locale}
-          onChange={props.changeLocale}
-          id="locale"
-          placeholder="Select an option"
-          ref={input => {
-            locale = input;
-          }}
-          className={!props.state.formValid.locale ? 'error' : ''}
-        />
-        {!props.state.formValid.locale ? (
-          <span className="errorMsj">Campo requerido</span>
-        ) : (
-          ''
-        )}
-      </div>
-      <div className="btns-container one-button">
+      <div className="btns-container">
         <button type="button" className="btn-prev" onClick={props.Functions.prevStepClick}>Anterior</button>
         <button className="btn-next" type="submit">
           Siguiente
